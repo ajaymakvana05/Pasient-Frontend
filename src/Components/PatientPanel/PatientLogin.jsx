@@ -38,98 +38,52 @@ const PatientLogin = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newErrors = {};
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-  //   console.log("Form Data:", formData);
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setErrors(newErrors);
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch("https://pasient-backend-1.onrender.com/patient/login", {
-  //       method: "POST",
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // 'Authorization': `Bearer ${token}` 
-  //       },
-  //       body: JSON.stringify(formData),
-  //       credentials: "include",
-  //     });
-
-  //     const result = await response.json();
-
-  //     if (response.ok) {
-  //       localStorage.setItem("PatientToken", result.token);
-  //       toast.success("Login successful! Redirecting...");
-  //       // navigate("/patientlogin");
-  //       navigate("/personalhealthrecord/patientdetaildashboard");
-  //     } else {
-  //       toast.error(result.message || "Login failed, please try again.");
-  //       setErrors({
-  //         apiError: result.message || "Login failed, please try again.",
-  //       });
-  //       setErrors({
-  //         apiError: result.message || "Login failed, please try again.",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Network error:", error);
-  //     toast.error("Network error occurred, please try again.");
-  //     setErrors({ apiError: "Network error occurred, please try again." });
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     const newErrors = {};
-  
-    // Validate form data
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.password) newErrors.password = 'Password is required';
-  
+    if (!validateForm()) {
+      return;
+    }
+    console.log("Form Data:", formData);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-  
-    console.log("Form Data:", formData);
-  
-    setLoading(true);
-  
+
     try {
-      // Sending credentials as URL parameters (query string)
-      const response = await fetch(`https://pasient-backend-1.onrender.com/patient/login?email=${formData.email}&password=${formData.password}`, {
-        method: "POST",  // Using GET instead of POST (if backend supports it)
+      const response = await fetch("https://pasient-backend-1.onrender.com/patient/login", {
+        method: "POST",
         headers: {
           'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}` 
         },
-        credentials: "include", // Include cookies (if needed)
+        body: JSON.stringify(formData),
+        credentials: "include",
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
-        // Handle successful login
         localStorage.setItem("PatientToken", result.token);
-        toast.success("Login successful!");
+        toast.success("Login successful! Redirecting...");
+        // navigate("/patientlogin");
+        navigate("/personalhealthrecord/patientdetaildashboard");
       } else {
-        // Show error if login failed
-        toast.error(result.message || "Login failed!");
+        toast.error(result.message || "Login failed, please try again.");
+        setErrors({
+          apiError: result.message || "Login failed, please try again.",
+        });
+        setErrors({
+          apiError: result.message || "Login failed, please try again.",
+        });
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      toast.error("Error during login: " + error.message);
-    } finally {
-      setLoading(false);
+      console.error("Network error:", error);
+      toast.error("Network error occurred, please try again.");
+      setErrors({ apiError: "Network error occurred, please try again." });
     }
   };
-  
+
   return (
     <div className="grid md:grid-cols-2 grid-cols-1 min-h-screen">
       <div className="md:order-2 order-1 flex justify-center items-center bg-blue-50">
