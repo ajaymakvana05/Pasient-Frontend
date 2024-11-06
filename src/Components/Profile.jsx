@@ -23,6 +23,9 @@ const Profile = () => {
     gender: "",
   });
 
+  // Keep a backup of the original profile data to revert changes if edit is canceled
+  const [originalProfileData, setOriginalProfileData] = useState({});
+
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
@@ -33,6 +36,7 @@ const Profile = () => {
         if (!response.ok) throw new Error("Failed to fetch admin data");
         const data = await response.json();
         setProfileData(data);
+        setOriginalProfileData(data); // Save original data for reset
       } catch (err) {
         setError(err.message);
       } finally {
@@ -50,6 +54,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setLoading(true); // Disable buttons during submission
     try {
       const response = await axios.patch(
         `https://pasient-backend-1.onrender.com/admin/update`,
@@ -61,7 +66,7 @@ const Profile = () => {
         toast.success("Profile updated successfully!");
         setIsEditable(false);
         setTimeout(() => {
-          setSuccessMessage("");
+          setSuccessMessage(""); // Clear success message after 3 seconds
         }, 3000);
       }
     } catch (error) {
@@ -70,7 +75,14 @@ const Profile = () => {
         "Failed to update profile: " +
           (error.response ? error.response.data.msg : error.message)
       );
+    } finally {
+      setLoading(false); // Re-enable buttons after submission
     }
+  };
+
+  const handleCancel = () => {
+    setProfileData(originalProfileData); // Reset data to the original values
+    setIsEditable(false);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -89,6 +101,9 @@ const Profile = () => {
             {isEditable ? "Cancel Edit" : "Edit Profile"}
           </button>
         </div>
+        {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
+        {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
+
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {/* First Name */}
@@ -266,15 +281,16 @@ const Profile = () => {
           {isEditable && (
             <div className="flex justify-end mt-6 ml-auto">
               <button
-                type="button" // Change to type "button" to avoid form submission
+                type="button"
                 className="bg-white text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
-                onClick={() => setIsEditable(false)} // Cancel button to exit edit mode
+                onClick={handleCancel} // Reset and exit edit mode
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 className="bg-blue text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                disabled={loading} // Disable button while submitting
               >
                 Save
               </button>
