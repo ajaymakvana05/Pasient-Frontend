@@ -76,8 +76,8 @@ const UodateDoctorForm = () => {
     try {
       const response = await axios.put(`https://pasient-backend-1.onrender.com/admin/UpdateDoctor/${id}`, doctorData, {
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
         withCredentials: true,
       });
 
