@@ -72,12 +72,12 @@ const PatientRegister = () => {
     }
 
     try {
-      console.log("Sending request to API..."); // Log before API call
+      console.log("Sending request to API...");
       const response = await fetch("https://pasient-backend-1.onrender.com/patient/signup", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+      },
         body: JSON.stringify(formData),
       });
 
