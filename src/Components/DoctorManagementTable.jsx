@@ -82,8 +82,8 @@ const DoctorManagementTable = () => {
     try {
       const response = await axios.delete(`https://pasient-backend-1.onrender.com/admin/deletedoctor/${selectedDoctorId}`, {
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
         withCredentials: true,
       });
 
