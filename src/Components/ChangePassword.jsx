@@ -32,6 +32,9 @@ const ChangePassword = () => {
         newpassword: newPassword,
         confirmpassword: confirmPassword,
       }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
         withCredentials: true
       });
 
