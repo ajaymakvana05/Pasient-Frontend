@@ -12,7 +12,7 @@ const DoctorProfileSidebar = () => {
     const fetchAdminData = async () => {
       setLoading(true); // Set loading to true before fetching
       try {
-        const response = await fetch("http://localhost:8090/doctor/profile", {
+        const response = await fetch("https://pasient-backend-1.onrender.com/doctor/profile", {
           method: "GET",
           credentials: "include",
         });
@@ -45,7 +45,7 @@ const DoctorProfileSidebar = () => {
     formData.append("lastname", profileData.lastname);
 
     try {
-      const response = await fetch(`http://localhost:8090/doctor/update/${profileData._id}`, {
+      const response = await fetch(`https://pasient-backend-1.onrender.com/doctor/update/${profileData._id}`, {
         method: "PATCH",
         body: formData,
         credentials: "include",

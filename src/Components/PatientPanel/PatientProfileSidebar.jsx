@@ -15,7 +15,7 @@ const PatientProfileSidebar = () => {
     const fetchPatientData = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8090/patient/profile", {  
+        const response = await fetch("https://pasient-backend-1.onrender.com/patient/profile", {  
           method: "GET",
           credentials: "include",
         });
@@ -61,7 +61,7 @@ const PatientProfileSidebar = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:8090/patient/update/${formData._id}`,
+        `https://pasient-backend-1.onrender.com/patient/update/${formData._id}`,
         formDataToSend,
         { withCredentials: true }
       );

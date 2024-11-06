@@ -53,7 +53,7 @@ const DoctorManagementTable = () => {
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-        const response = await fetch("http://localhost:8090/admin/alldoctors", {
+        const response = await fetch("https://pasient-backend-1.onrender.com/admin/alldoctors", {
           method: "GET",
           credentials: "include",
         });
@@ -77,7 +77,7 @@ const DoctorManagementTable = () => {
     }
 
     try {
-      const response = await axios.delete(`http://localhost:8090/admin/deletedoctor/${selectedDoctorId}`, {
+      const response = await axios.delete(`https://pasient-backend-1.onrender.com/admin/deletedoctor/${selectedDoctorId}`, {
         headers: {
           "Content-Type": "application/json",
         },

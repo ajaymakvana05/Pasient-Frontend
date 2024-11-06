@@ -27,7 +27,7 @@ const PatientAppointmentBooking = () => {
   useEffect(() => {
     const fetchDoctorsAndHospitals = async () => {
       try {
-        const doctorResponse = await fetch("http://localhost:8090/Appointment/alldoctor", {
+        const doctorResponse = await fetch("https://pasient-backend-1.onrender.com/Appointment/alldoctor", {
           credentials: 'include',
         });
         const doctorData = await doctorResponse.json();

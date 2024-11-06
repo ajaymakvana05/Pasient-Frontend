@@ -26,7 +26,7 @@ const DoctorChangePassword = () => {
 
     try {
       const response = await axios.patch(
-        "http://localhost:8090/doctor/resetpassword",
+        "https://pasient-backend-1.onrender.com/doctor/resetpassword",
         {
           oldpassword: oldPassword,
           newpassword: newPassword,

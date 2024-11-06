@@ -13,7 +13,7 @@ const PatientDetailDashboard = () => {
     const fetchAdminData = async () => {
       try {
         console.log("Fetching patient data...");
-        const response = await fetch("http://localhost:8090/patient/profile", {
+        const response = await fetch("https://pasient-backend-1.onrender.com/patient/profile", {
           method: "GET",
           credentials: "include",
         });

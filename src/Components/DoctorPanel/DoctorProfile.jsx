@@ -27,7 +27,7 @@ const DoctorProfile = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await fetch("http://localhost:8090/doctor/profile", {
+        const response = await fetch("https://pasient-backend-1.onrender.com/doctor/profile", {
           method: "GET",
           credentials: "include",
         });
@@ -55,7 +55,7 @@ const DoctorProfile = () => {
     try {
       // Assuming profileData contains the updated information
       const response = await axios.patch(
-        `http://localhost:8090/doctor/update/${profileData._id}`, // Use the actual ID here
+        `https://pasient-backend-1.onrender.com/doctor/update/${profileData._id}`, // Use the actual ID here
         profileData,
         { withCredentials: true } // Ensure credentials are included for authentication
       );
