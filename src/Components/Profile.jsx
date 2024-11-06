@@ -31,7 +31,10 @@ const Profile = () => {
       try {
         const response = await fetch("https://pasient-backend-1.onrender.com/admin/profile", {
           method: "GET",
-          credentials: "include",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+          // credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
         const data = await response.json();
