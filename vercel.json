@@ -1,5 +1,9 @@
 {
+  "methods": ["GET", "POST", "PUT", "DELETE"],
   "rewrites": [
-    { "source": "/:path*", "destination": "/index.html" }
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
   ]
 }
