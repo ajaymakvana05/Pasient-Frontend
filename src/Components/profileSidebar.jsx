@@ -13,6 +13,9 @@ const ProfileSidebar = () => {
             try {
                 const response = await fetch("https://pasient-backend-1.onrender.com/admin/profile", {
                     method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
                     credentials: "include",
                 });
                 if (!response.ok) throw new Error("Failed to fetch admin data");

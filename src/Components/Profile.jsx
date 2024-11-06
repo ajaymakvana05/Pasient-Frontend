@@ -33,7 +33,7 @@ const Profile = () => {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
+          },
           // credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
@@ -62,7 +62,13 @@ const Profile = () => {
       const response = await axios.patch(
         `https://pasient-backend-1.onrender.com/admin/update`,
         profileData,
-        { withCredentials: true }
+
+        {
+          withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+        }
       );
       if (response.data) {
         setSuccessMessage("Profile updated successfully!");
@@ -76,7 +82,7 @@ const Profile = () => {
       console.error("Error updating profile", error);
       setErrorMessage(
         "Failed to update profile: " +
-          (error.response ? error.response.data.msg : error.message)
+        (error.response ? error.response.data.msg : error.message)
       );
     } finally {
       setLoading(false); // Re-enable buttons after submission
