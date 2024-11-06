@@ -98,6 +98,9 @@ const UodateDoctorForm = () => {
       try {
         const response = await fetch("https://pasient-backend-1.onrender.com/admin/alldoctors", {
           method: "GET",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
           credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
