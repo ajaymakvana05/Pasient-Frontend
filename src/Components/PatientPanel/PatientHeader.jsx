@@ -21,6 +21,9 @@ const PatientHeader = ({ toggleSidebar }) => {
         const response = await fetch("https://pasient-backend-1.onrender.com/patient/profile", {
           method: "GET",
           credentials: "include",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          },
         });
 
         if (!response.ok) {

@@ -40,6 +40,9 @@ const PatientProfile = () => {
         console.log("Fetching patient data...");
         const response = await fetch("https://pasient-backend-1.onrender.com/patient/profile", {
           method: "GET",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          },
           credentials: "include",
         });
 
@@ -71,7 +74,11 @@ const PatientProfile = () => {
       const response = await axios.patch(
         `https://pasient-backend-1.onrender.com/patient/update/${patientId}`,
         formData,
-        { withCredentials: true }
+        { withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          },
+         }
       );
 
       if (response.data) {
