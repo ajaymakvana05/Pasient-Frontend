@@ -29,6 +29,9 @@ const PatientAppointmentBooking = () => {
       try {
         const doctorResponse = await fetch("https://pasient-backend-1.onrender.com/Appointment/alldoctor", {
           credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          },
         });
         const doctorData = await doctorResponse.json();
         setDoctors(doctorData);
