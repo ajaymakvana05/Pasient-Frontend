@@ -38,68 +38,38 @@ const PatientRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Form data being sent:", formData); 
-
+  
     const newErrors = {};
-
-    // Validation checks
-    if (!formData.firstname) newErrors.firstname = "First Name is required.";
-    if (!formData.lastname) newErrors.lastname = "Last Name is required.";
-    if (!formData.email) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email address is invalid.";
-    }
-    if (!formData.phonenumber) {
-      newErrors.phonenumber = "Phone Number is required.";
-    } else if (!/^\d{10}$/.test(formData.phonenumber)) {
-      newErrors.phonenumber = "Phone Number must be 10 digits.";
-    }
-    if (!formData.password) newErrors.password = "Password is required.";
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-    if (!formData.terms) newErrors.terms = "You must agree to the terms.";
-
-
-    // console.log("Passwords:", formData.password, formData.confirmPassword);
-
-    // Log validation errors
+    // Validation logic
+  
     if (Object.keys(newErrors).length > 0) {
-      console.log("Validation errors:", newErrors);
       setErrors(newErrors);
       return;
     }
-
+  
     try {
-      console.log("Sending request to API...");
       const response = await fetch("https://pasient-backend-1.onrender.com/patient/signup", {
         method: "POST",
-      //   headers: {
-      //     'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
-      // },
+        headers: {
+          "Content-Type": "application/json", // Set the correct content type
+        },
         body: JSON.stringify(formData),
       });
-
-      // Log the response status
-      // console.log("Response status:", response.status);
+  
       const result = await response.json();
-
-      // Log the result
-      // console.log("API response:", result);
-
       if (response.ok) {
         toast.success("Registration successful! Redirecting...");
         navigate("/patientlogin");
       } else {
-        toast.error(result.msg);
+        toast.error(result.msg || "Something went wrong!");
         setErrors({ apiError: result.msg || "Something went wrong!" });
       }
     } catch (error) {
-      console.error("Network error occurred:", error);
+      console.error("Network error:", error);
       setErrors({ apiError: "Network error occurred, please try again." });
     }
   };
+  
 
   return (
     <div className="grid md:grid-cols-2 grid-cols-1 ">
