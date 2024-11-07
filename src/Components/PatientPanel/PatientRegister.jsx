@@ -76,7 +76,7 @@ const PatientRegister = () => {
       const response = await fetch("https://pasient-backend-1.onrender.com/patient/signup", {
         method: "POST",
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          "Content-Type": "application/json", // Set the content type to JSON
         },
         body: JSON.stringify(formData),
       });

@@ -32,7 +32,7 @@ const Profile = () => {
         const response = await fetch("https://pasient-backend-1.onrender.com/admin/profile", {
           method: "GET",
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
           },
           // credentials: "include",
         });
