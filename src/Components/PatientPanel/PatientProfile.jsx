@@ -65,20 +65,54 @@ const PatientProfile = () => {
     fetchAdminData();
   }, []);
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrorMessage("");
+  //   const patientId = formData._id;
+
+  //   try {
+  //     const response = await axios.patch(
+  //       `https://pasient-backend-1.onrender.com/patient/update/${patientId}`,
+  //       formData,
+  //       { withCredentials: true,
+  //         headers: {
+  //           'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+  //         },
+  //        }
+  //     );
+
+  //     if (response.data) {
+  //       setSuccessMessage("Profile updated successfully!");
+  //       toast.success("Profile updated successfully!");
+  //       setIsEditable(false);
+  //       setTimeout(() => {
+  //         setSuccessMessage("");
+  //       }, 3000);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating profile", error);
+  //     setErrorMessage(
+  //       "Failed to update profile: " +
+  //       (error.response ? error.response.data.msg : error.message)
+  //     );
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("");
+    setErrorMessage(""); // Clear any previous error message
     const patientId = formData._id;
 
     try {
       const response = await axios.patch(
         `https://pasient-backend-1.onrender.com/patient/update/${patientId}`,
         formData,
-        { withCredentials: true,
+        {
+          withCredentials: true,
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
           },
-         }
+        }
       );
 
       if (response.data) {
@@ -90,11 +124,22 @@ const PatientProfile = () => {
         }, 3000);
       }
     } catch (error) {
-      console.error("Error updating profile", error);
-      setErrorMessage(
-        "Failed to update profile: " +
-        (error.response ? error.response.data.msg : error.message)
-      );
+      // Check if the error has a response
+      if (error.response) {
+        // The request was made, but the server responded with an error
+        console.error("Error updating profile - Server responded:", error.response);
+        setErrorMessage(
+          "Failed to update profile: " + (error.response.data.msg || error.response.data)
+        );
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Error updating profile - No response received:", error.request);
+        setErrorMessage("Failed to update profile: No response from server.");
+      } else {
+        // An unknown error occurred in setting up the request
+        console.error("Error updating profile - Setup issue:", error.message);
+        setErrorMessage("Failed to update profile: " + error.message);
+      }
     }
   };
 
