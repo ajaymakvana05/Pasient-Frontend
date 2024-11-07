@@ -66,7 +66,11 @@ const PatientProfileSidebar = () => {
       const response = await axios.patch(
         `https://pasient-backend-1.onrender.com/patient/update/${formData._id}`,
         formDataToSend,
-        { withCredentials: true }
+        { withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          },
+         }
       );
 
       if (response.data) {

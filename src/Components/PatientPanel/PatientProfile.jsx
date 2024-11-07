@@ -75,9 +75,9 @@ const PatientProfile = () => {
         `https://pasient-backend-1.onrender.com/patient/update/${patientId}`,
         formData,
         { withCredentials: true,
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
-          },
+          // headers: {
+          //   'Authorization': `Bearer ${localStorage.getItem('PatientToken')}`
+          // },
          }
       );
 
