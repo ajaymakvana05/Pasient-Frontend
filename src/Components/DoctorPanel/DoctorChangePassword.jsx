@@ -34,6 +34,9 @@ const DoctorChangePassword = () => {
         },
         {
           withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('DoctorToken')}`
+        }
         }
       );
 
