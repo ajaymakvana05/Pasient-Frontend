@@ -49,6 +49,9 @@ const DoctorProfileSidebar = () => {
         method: "PATCH",
         body: formData,
         credentials: "include",
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('Doctortoken')}`
+      }
       });
       const result = await response.json();
       if (response.ok) {

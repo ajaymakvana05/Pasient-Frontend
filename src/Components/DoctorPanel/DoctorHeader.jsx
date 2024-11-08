@@ -19,6 +19,9 @@ const DoctorHeader = ({ toggleSidebar }) => {
         const response = await fetch("https://pasient-backend-1.onrender.com/doctor/profile", {
           method: "GET",
           credentials: "include",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('Doctortoken')}`
+        },
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
         const data = await response.json();
