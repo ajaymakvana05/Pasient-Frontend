@@ -10,11 +10,14 @@ const DoctorProfileSidebar = () => {
 
   useEffect(() => {
     const fetchAdminData = async () => {
-      setLoading(true); // Set loading to true before fetching
+      setLoading(true); 
       try {
         const response = await fetch("https://pasient-backend-1.onrender.com/doctor/profile", {
           method: "GET",
           credentials: "include",
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('DoctorToken')}`
+        }
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
         const data = await response.json();
@@ -22,7 +25,7 @@ const DoctorProfileSidebar = () => {
       } catch (err) {
         console.error("Error fetching profile data:", err.message);
       } finally {
-        setLoading(false); // Ensure loading is set to false at the end
+        setLoading(false); 
       }
     };
 
