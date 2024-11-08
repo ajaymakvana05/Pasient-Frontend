@@ -50,7 +50,7 @@ const DoctorProfileSidebar = () => {
         body: formData,
         credentials: "include",
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('Doctortoken')}`
+          'Authorization': `Bearer ${localStorage.getItem('DoctorToken')}`
       }
       });
       const result = await response.json();

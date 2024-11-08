@@ -20,7 +20,7 @@ const DoctorHeader = ({ toggleSidebar }) => {
           method: "GET",
           credentials: "include",
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('Doctortoken')}`
+            'Authorization': `Bearer ${localStorage.getItem('DoctorToken')}`
         },
         });
         if (!response.ok) throw new Error("Failed to fetch admin data");
