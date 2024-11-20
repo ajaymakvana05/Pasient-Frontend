@@ -193,7 +193,7 @@ const Login = () => {
               <p className="text-sm text-gray-700">
                 Don’t have an account?{" "}
                 <Link
-                  to="/register"
+                  to="/patientregister"
                   className="text-blue-500 hover:text-blue-700"
                 >
                   Registration

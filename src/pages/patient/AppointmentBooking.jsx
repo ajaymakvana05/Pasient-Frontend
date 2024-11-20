@@ -17,7 +17,7 @@ const AppointmentBooking = () => {
       />
       <div className="flex flex-col flex-grow w-1/2  ">
         <PatientHeader toggleSidebar={toggleSidebar} />
-        <div className="flex flex-col h-full overflow-y-auto bg-greyLightest  ">
+        <div className="flex flex-col h-full overflow-y-auto bg-greyLightest">
           <Outlet></Outlet>
         </div>
       </div>
